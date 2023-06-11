@@ -2,16 +2,16 @@
 
 import os
 import sys
-import math
+
 
 def separate(entrys, path, c=0):
-    c+=1
+    c += 1
     num_entrys = len(entrys)
     sliced_entrys = []
     if num_entrys == 0:
         return
-    
-    while len(sliced_entrys) <= 30 and len(entrys) > 0:
+
+    while len(sliced_entrys) <= 29 and len(entrys) > 0:
         sliced_entrys.append(entrys.pop(0))
 
     sub_dir_path = os.path.join(path, f"package{c}")
@@ -21,10 +21,9 @@ def separate(entrys, path, c=0):
         entry_path = os.path.join(path, entry)
         new_entry_path = os.path.join(sub_dir_path, entry)
         os.rename(entry_path, new_entry_path)
-    separate(entrys,c)
-    
-    
-        
+    separate(entrys, path, c)
+
+
 def organize(path):
     entrys = []
     for entry in os.scandir(path):
@@ -34,8 +33,7 @@ def organize(path):
         else:
             entrys.append(entry.name)
     separate(entrys, path)
-            
-        
+
 
 root_dir_path = sys.argv[1]
 
